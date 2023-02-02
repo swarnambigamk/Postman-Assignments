@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "61730a74-3914-4c1c-8128-7dddefdcf62b",
+		"name": "Week2Day1_ChainingwithDatafromCSV_ChangeRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25430221"
+	},
+	"item": [
+		{
+			"name": "CreateChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CreateChangeRequest\", function () {\r",
+							"    pm.response.to.have.status(201);});\r",
+							"\r",
+							"\r",
+							"var resp=pm.response.json();\r",
+							"var systemid = resp.result.sys_id;\r",
+							"pm.globals.set(\"SysID\",systemid);\r",
+							"console.log(systemid)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"{{Desc}}\",\r\n    \"short_description\": \"{{Short_desc}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/now/table/{{change_request}}?sysparm_fields=sys_id",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{change_request}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete change request\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{BaseUrl}}/api/now/table/{{change_request}}/{{SysID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Modify incident Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"my first updated via postman\",\r\n    \"description\": \"updated via  postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseUrl}}/api/now/table/{{change_request}}/{{SysID}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"username": "admin",
+			"password": "qN6g2xuY%EU%"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "change_request",
+			"value": "change_request",
+			"type": "string"
+		}
+	]
+}
